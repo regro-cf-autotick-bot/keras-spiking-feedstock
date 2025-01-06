@@ -7,25 +7,27 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/keras-spiking-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/keras-spiking-{{ version }}.tar.gz
   sha256: 7e729ff7102ee4a9fcb3901aa0763164ff8ea780b8482101c01d8cca14f8bde4
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
   run:
     - numpy
     - packaging
-    - python >=3.6
+    - python >={{ python_min }}
     - tensorflow >=2.1.0
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - keras_spiking
 
